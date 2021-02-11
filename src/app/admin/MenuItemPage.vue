@@ -8,7 +8,7 @@
       <!-- Edit Header Area -->
       <div class="columns is-gapless">
         <!-- Left Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
         <!-- Center Column -->
         <div class="column">
           <div class="m-l-24 m-r-24">
@@ -57,7 +57,7 @@
 
             <!-- Public Checkbox -->
             <div
-              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 rounded-lg"
+              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8"
             >
               <b-checkbox
                 v-model="menuInfo.publicFlag"
@@ -88,13 +88,13 @@
           </div>
         </div>
         <!-- Right Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
       </div>
 
       <!-- Edit Body Area -->
       <div class="columns is-gapless">
         <!-- Left Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
 
         <!-- Left Column -->
         <div class="column">
@@ -255,7 +255,7 @@
                 <!-- Current Photo -->
                 <div v-if="itemPhoto" class="p-r-16">
                   <div>
-                    <img class="w-32 h-32 rounded cover" :src="itemPhoto" />
+                    <img class="w-128 h-128 r-4 cover" :src="itemPhoto" />
                   </div>
                   <div class="align-center t-caption">
                     {{ $t("editCommon.current") }}
@@ -280,7 +280,7 @@
                     :show-remove-button="true"
                     @file-choose="handleMenuImage"
                   ></croppa>
-                  <div class="align-center t-caption w-32">
+                  <div class="align-center t-caption w-128">
                     {{ $t("editCommon.new") }}
                   </div>
                 </div>
@@ -302,6 +302,7 @@
                 <div class="t-body2 c-text-black-medium p-b-8">
                   {{ $t("editMenu.itemOptionsNote") }}
                 </div>
+
                 <!-- Option Details -->
                 <div>
                   <template
@@ -314,7 +315,7 @@
                         class="flex-1"
                       />
                       <b-button
-                        class="b-reset op-button-pill h-10 bg-status-red-bg m-l-8"
+                        class="b-reset op-button-pill h-36 bg-status-red-bg m-l-8"
                         @click="deleteOption(key)"
                       >
                         <i class="material-icons c-status-red s-18 p-l-8 p-r-8"
@@ -322,12 +323,50 @@
                         >
                       </b-button>
                     </div>
+
+                    <!-- Option Preview -->
+                    <div
+                      class="bg-form t-subtitle2 p-l-16 p-r-16 p-t-8 p-b-8 m-b-16 r-8"
+                    >
+                      <div class="t-caption p-b-8 c-text-black-disabled cols">
+                        <div class="flex-1">
+                          {{ $t("editMenu.optionsPreview") }}
+                        </div>
+                        <div>{{ $t("editMenu.priceChange") }}</div>
+                      </div>
+                      <div v-for="(opt, k) in itemOptions[key]" class="cols">
+                        <div class="flex-1">
+                          <b-checkbox
+                            v-if="itemOptions[key].length == 1"
+                            disabled
+                          >
+                            <span class="t-subtitle2">{{
+                              displayOption(opt)
+                            }}</span>
+                          </b-checkbox>
+                          <b-radio
+                            v-else
+                            v-model="dummyCheckbox[key]"
+                            :native-value="k"
+                            disabled
+                          >
+                            <span class="t-subtitle2">{{
+                              displayOption(opt)
+                            }}</span>
+                          </b-radio>
+                        </div>
+                        <div class="c-text-black-disabled">
+                          {{ optionPrice(opt) }}
+                        </div>
+                      </div>
+                    </div>
                   </template>
                 </div>
+
                 <!-- Add Option -->
                 <div>
                   <b-button
-                    class="b-reset op-button-pill h-10 bg-form"
+                    class="b-reset op-button-pill h-36 bg-form"
                     @click="addOption"
                   >
                     <i class="material-icons c-primary m-l-8">add</i>
@@ -357,7 +396,7 @@
               </b-select>
               <div class="m-t-8">
                 <b-button
-                  class="b-reset op-button-pill h-10 bg-form"
+                  class="b-reset op-button-pill h-36 bg-form"
                   @click="editCategory('category1')"
                 >
                   <span class="c-primary t-button">
@@ -384,7 +423,7 @@
               </b-select>
               <div class="m-t-8">
                 <b-button
-                  class="b-reset op-button-pill h-10 bg-form"
+                  class="b-reset op-button-pill h-36 bg-form"
                   @click="editCategory('category2')"
                 >
                   <span class="c-primary t-button">
@@ -397,19 +436,19 @@
         </div>
 
         <!-- Right Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
       </div>
 
       <!-- Edit Footer Area -->
       <div class="columns is-gapless">
         <!-- Left Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
         <!-- Center Column -->
         <div class="column">
           <div class="m-l-24 m-r-24 m-t-24">
             <!-- Public Checkbox -->
             <div
-              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 rounded-lg"
+              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8"
             >
               <b-checkbox
                 v-model="menuInfo.publicFlag"
@@ -468,7 +507,7 @@
           </div>
         </div>
         <!-- Right Gap -->
-        <div class="column is-narrow w-6"></div>
+        <div class="column is-narrow w-24"></div>
       </div>
       <edit-category
         v-if="categoryKey"
@@ -490,7 +529,11 @@ import Price from "~/components/Price";
 import { taxRates } from "~/plugins/constant.js";
 import NotificationIndex from "./Notifications/Index";
 import { ownPlateConfig } from "@/config/project";
-import { halfCharactors } from "~/plugins/strings.js";
+import {
+  halfCharactors,
+  formatOption,
+  optionPrice
+} from "~/plugins/strings.js";
 import EditCategory from "~/app/admin/Menus/EditCategory";
 
 export default {
@@ -506,6 +549,7 @@ export default {
 
   data() {
     return {
+      dummyCheckbox: [],
       menuInfo: {
         itemName: "",
         price: 0,
@@ -574,6 +618,11 @@ export default {
     this.notFound = false;
   },
   computed: {
+    itemOptions() {
+      return this.menuInfo.itemOptionCheckbox.map(v => {
+        return v.split(",");
+      });
+    },
     categories1() {
       return this.restaurantInfo.category1;
     },
@@ -617,6 +666,18 @@ export default {
     }
   },
   methods: {
+    displayOption(option) {
+      return formatOption(option, price => this.$n(price, "currency"));
+    },
+    optionPrice(str) {
+      const price = optionPrice(str);
+      if (price === 0) {
+        return this.$t("editMenu.noPriceChange");
+      } else if (price > 0) {
+        return "+" + this.$n(price, "currency");
+      }
+      return this.$n(price, "currency");
+    },
     async handleCategoryUpdated(categories) {
       await db.doc(`restaurants/${this.restaurantId()}`).update({
         [this.categoryKey]: categories
